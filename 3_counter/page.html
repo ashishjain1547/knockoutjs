@@ -1,0 +1,21 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+
+
+    <button id="customButton" data-bind="click: increment">Counter</button>
+    <p id="customAnswer" data-bind="text: customAnswer"> </p>
+</body>
+
+<script type="text/javascript">
+    var viewModel = {
+
+        customAnswer: ko.observable(0),
+        increment: function () {
+            var result = parseInt(this.customAnswer()) + 1
+            this.customAnswer(result)
+        }
+    };
+
+    ko.applyBindings(viewModel);
+</script>

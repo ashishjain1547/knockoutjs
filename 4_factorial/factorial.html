@@ -1,0 +1,26 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+
+    <p>A </p>
+    <input type="text" data-bind="value: customA">
+
+    <button id="customButton" data-bind="click: factorial">Factorial</button>
+    <p id="customAnswer" data-bind="text: customAnswer"> </p>
+</body>
+
+<script type="text/javascript">
+    var viewModel = {
+        customA: ko.observable(""),
+        customAnswer: ko.observable(0),
+        factorial: function () {
+            for (var i = 0; i < parseInt(this.customA()); i++){
+                if (parseInt(this.customA()) == 0){
+
+                }
+            }
+        }
+    };
+
+    ko.applyBindings(viewModel);
+</script>
