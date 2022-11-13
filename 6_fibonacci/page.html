@@ -5,7 +5,7 @@
     <p>A </p>
     <input type="text" data-bind="value: customA">
 
-    <button id="customButton" data-bind="click: factorial">Factorial</button>
+    <button id="customButton" data-bind="click: fibonacci">Fibonacci</button>
     <p id="customAnswer" data-bind="text: customAnswer"> </p>
 </body>
 
@@ -13,13 +13,20 @@
     var viewModel = {
         customA: ko.observable(""),
         customAnswer: ko.observable(0),
-        factorial: function () {
-            let rtn = 1;
-            for (var i = parseInt(this.customA()); i > 1; i--) {
+        fibonacci: function () {
+            last =1
+            secondLast=1
+            let rtn =[1,1];
+            for (var i = 0; i <parseInt(this.customA())-2; i++) {
 
-                rtn = rtn * i
+                rtn.push(last + secondLast)
+                last = rtn[rtn.length - 1]
+                secondLast = rtn[rtn.length - 2]
+
+        
             }
             this.customAnswer(rtn)
+
         }
     };
 

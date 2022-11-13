@@ -1,0 +1,33 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+
+    <input type="text" data-bind="value: customStr">
+
+    <button id="customButton" data-bind="click: palindrom">Check Palindrome</button>
+    <p id="customAnswer" data-bind="text: customAnswer"> </p>
+</body>
+
+<script type="text/javascript">
+    var viewModel = {
+        customStr: ko.observable(""),
+        customAnswer: ko.observable(""),
+        customButton: ko.observable(0),
+        palindrom: function () {
+            reversedStr = ""
+            for (i = this.customStr().length - 1; i >= 0; i--){
+                reversedStr += this.customStr()[i]
+            }
+
+            if(reversedStr == this.customStr()){
+                this.customAnswer("It is a palindrome.")
+            }
+            else {
+                this.customAnswer("It is not a palindrome")
+            }
+            
+        }
+    };
+
+    ko.applyBindings(viewModel);
+</script>

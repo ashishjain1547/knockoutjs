@@ -1,0 +1,36 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+
+    <button id="customButton" data-bind="click: minMax">Randomize 10 Numbers</button>
+    <p id="customNumbers" data-bind="text: customNumbers"></p>
+    Max:
+    <p id="customAnswer" data-bind="text: customMax"> </p>
+    Min:
+    <p id="customAnswer" data-bind="text: customMin"> </p>
+    
+</body>
+
+<script type="text/javascript">
+    var viewModel = {
+        customNumbers: ko.observable(""),
+        customMax: ko.observable(""),
+        customMin: ko.observable(""),
+        
+        minMax: function () {
+            arr = []
+            for (i = 0; i < 10; i++){
+                arr.push(parseInt(Math.random() * 100))
+            }
+
+            this.customNumbers(arr)
+            
+            this.customMax(Math.max(...arr))
+
+            this.customMin(Math.min(...arr))
+
+        }
+    };
+
+    ko.applyBindings(viewModel);
+</script>

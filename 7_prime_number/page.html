@@ -1,0 +1,40 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+    <p>A </p>
+    <input type="text" data-bind="value: customA">
+
+    <button id="customButton" data-bind="click: primeNumber">primeNumber</button>
+    <p id="customAnswer" data-bind="text: customAnswer"> </p>
+</body>
+
+<script type="text/javascript">
+    var viewModel = {
+        customA: ko.observable(""),
+        customAnswer: ko.observable(0),
+        primeNumber: function () {
+            rtn = []
+            current_number = 1;
+            rtn.push(current_number)
+            while (rtn.length < parseInt(this.customA())) {
+
+                current_number++
+                factor_found = false
+
+                for (j = 2; j <= Math.sqrt(current_number); j++) {
+                    if (current_number % j == 0) {
+                        factor_found = true
+                        break;
+                    }
+                }
+
+                if (!factor_found) {
+                    rtn.push(current_number)
+                }
+            }
+            this.customAnswer(rtn);
+        }
+    };
+
+    ko.applyBindings(viewModel);
+</script>

@@ -1,0 +1,44 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+    <input type="text" data-bind="value: customInput">
+
+    <button id="customButton" data-bind="click: factorization">Factorization</button>
+    <p id="customAnswer" data-bind="text: customAnswer"> </p>
+</body>
+
+<script type="text/javascript">
+    function getLowestFactor(input) {
+        let rtn = 1
+        for (let i = 2; true; i++) {
+            if (input % i == 0) {
+                rtn = i
+                break
+            }
+
+        }
+        return rtn
+    }
+    var viewModel = {
+
+        customAnswer: ko.observable(0),
+        customInput: ko.observable(0),
+        factorization: function () {
+            var input = parseInt(this.customInput())
+            let result = []
+            lowest_factor = -1
+            while (input != 1) {
+                lowest_factor = getLowestFactor(input)
+                
+                result.push(lowest_factor)
+                input = input / lowest_factor
+                
+
+            }
+            this.customAnswer(JSON.stringify(result))
+
+        }
+    };
+
+    ko.applyBindings(viewModel);
+</script>
