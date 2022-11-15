@@ -1,0 +1,63 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+    <p>Enter numbers as CSV:</p>
+    <input type="text" data-bind="value: customNumbers">
+    
+    <br>
+    <br>
+    <button id="customButton" data-bind="click: hcf">Get HCF</button>
+    <br><br>
+    <h1>Steps</h1>
+    <div data-bind="foreach: hcf_solution">
+        <p data-bind="text: $data"></p>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    var viewModel = {
+        customNumbers: ko.observable(""),
+        
+        customAnswer: ko.observable(),
+
+        hcf_solution: ko.observableArray([]), // Columns: factor, firstno, secondno
+
+        hcf: function () {
+
+            sorted_arr = this.customNumbers().split(",")
+            sorted_arr = sorted_arr.map(parseInt)
+
+            sorted_arr.sort(function (a, b) { return a - b });
+            
+            console.log(sorted_arr)
+            
+            let modulo = -1
+            let prev_divisor = -1
+            for (let x = 0; x < sorted_arr.length - 1; x++) {
+
+                let curr_divisor = sorted_arr[x]
+                let curr_dividend = sorted_arr[x + 1]
+
+                while (modulo != 0 && modulo != 1) {
+                    modulo = curr_dividend % curr_divisor
+                    prev_divisor = curr_divisor
+                    curr_divisor = modulo
+                    curr_dividend = prev_divisor
+                }
+            }
+            if (modulo == 0) {
+                console.log("HCF is:", prev_divisor)
+            } else if (modulo == 1) {
+                console.log("HCF is: 1")
+            }
+        }
+    };
+
+    ko.applyBindings(viewModel);
+</script>
+<!-- 
+15, 45, 150 -> 15
+42, 96, 12 -> 6
+9, 4, 8 -> 1
+ -->

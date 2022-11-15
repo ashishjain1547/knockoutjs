@@ -1,0 +1,114 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+    <p>Enter numbers:</p>
+    <p>Number A:</p>
+    <input type="text" data-bind="value: customA">
+    <p>Number B:</p>
+    <input type="text" data-bind="value: customB">
+    <p>Number C:</p>
+    <input type="text" data-bind="value: customC">
+    <br>
+    <br>
+    <button id="customButton" data-bind="click: lcm">Get LCM</button>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>Factor</th>
+                <th>First No.</th>
+                <th>Second No.</th>
+                <th>Third No.</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: lcm_table">
+            <tr>
+                <td data-bind="text: factor"></td>
+                <td data-bind="text: firstno"></td>
+                <td data-bind="text: secondno"></td>
+                <td data-bind="text: thirdno"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <p>Your LCM is: <span data-bind="text: customAnswer"></span></p> 
+</body>
+
+<script type="text/javascript">
+    function get_common_factor(a, b, c) {
+        let limit = Math.min(a, b, c)
+
+        let rtn = limit;
+
+        for (i = 2; i < Math.sqrt(limit); i++) {
+            if (a % i == 0 && b % i == 0 && c % i==0) {
+                rtn = i
+                break
+            }
+        }
+
+        return rtn
+    }
+
+    var viewModel = {
+        customA: ko.observable(""),
+        customB: ko.observable(""),
+        customC: ko.observable(""),
+        customAnswer: ko.observable(),
+        
+        lcm_table: ko.observableArray([]), // Columns: factor, firstno, secondno, third
+
+        lcm: function () {
+            this.lcm_table([]);
+            
+            let a = parseInt(this.customA())
+            let b = parseInt(this.customB())
+            let c = parseInt(this.customC())
+
+            for (i = 2; true; i++) {
+                f = get_common_factor(a, b, c)
+                this.lcm_table.push(
+                    {
+                        "factor": f,
+                        "firstno": a,
+                        "secondno": b,
+                        "thirdno": c
+                    }
+                )
+                
+                a = (a % f == 0) ? (a / f) : a
+                b = (b % f == 0) ? (b / f) : b
+                c = (c % f == 0) ? (c / f) : c
+
+                
+                if (a == 1 || b == 1 || c == 1) {
+                    this.lcm_table.push(
+                        {
+                            "factor": "",
+                            "firstno": a,
+                            "secondno": b,
+                            "thirdno": c
+                        }
+                    )
+                    break
+                }
+            }
+
+            lcm = 1
+            
+            for (i = 0; i < this.lcm_table().length - 1; i++){
+                lcm *= this.lcm_table()[i]['factor']
+            }
+
+            lcm *= this.lcm_table()[this.lcm_table().length - 1]['firstno']
+            lcm *= this.lcm_table()[this.lcm_table().length - 1]['secondno']
+            lcm *= this.lcm_table()[this.lcm_table().length - 1]['thirdno']
+
+            this.customAnswer(lcm);
+        }
+
+
+    };
+
+    ko.applyBindings(viewModel);
+</script>
