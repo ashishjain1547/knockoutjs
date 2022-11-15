@@ -28,15 +28,9 @@
 
         hcf_solution: ko.observableArray([]), // Columns: factor, firstno, secondno
 
-        coreHcf: function () {
-            sorted_arr = [this.customA(), this.customB(),]
-            sorted_arr.sort(function (a, b) { return a - b });
-            console.log(sorted_arr)
+        coreHcf: function (curr_divisor, curr_dividend) {
             let modulo = -1
             let prev_divisor = -1
-
-            let curr_divisor = sorted_arr[0]
-            let curr_dividend = sorted_arr[1]
 
             while (modulo != 0 && modulo != 1) {
                 modulo = curr_dividend % curr_divisor
@@ -46,22 +40,27 @@
             }
 
             if (modulo == 0) {
-                console.log("HCF is:", prev_divisor)
+                console.log("From coreHcf. HCF is:", prev_divisor)
+                rtn = prev_divisor
             }
             else if (modulo == 1) {
-                console.log("HCF is: 1")
+                console.log("From coreHcf. HCF is: 1")
+                rtn = 1
             }
+
+            return rtn
         },
 
         getHcf: function () {
             sorted_arr = [this.customA(), this.customB(), this.customC()]
-            sorted_arr.sort(function (a, b) { return a - b });
+            sorted_arr.sort(function (a, b) { return b - a }); // Decreasing order
             console.log(sorted_arr)
             
             rtnHcf = sorted_arr[0]
             for (let i = 1; i < sorted_arr.length; i++){
-                rtnHcf = this.coreHcf(rtnHcf, sorted_arr[i])
+                rtnHcf = this.coreHcf(sorted_arr[i], rtnHcf)
             }
+            console.log("Final:", rtnHcf)
         }
     };
 
@@ -71,4 +70,5 @@
 15, 45, 150 -> 15
 42, 96, 12 -> 6
 9, 4, 8 -> 1
+2, 4, 12 -> 2
  -->
