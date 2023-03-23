@@ -1,6 +1,12 @@
 <script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+<style>
+    button {
+        margin: 2px;
+    }
+</style>
 
 <body>
+    <h2>Binary Arithematic Operations</h2>
     A: <input type="text" data-bind="value: customA">
     B: <input type="text" data-bind="value: customB">
     <br> <br>
@@ -8,25 +14,62 @@
     &nbsp; <button data-bind="click: customSubtract">Subtract</button> 
     &nbsp; <button data-bind="click: customMultiply">Multiply</button> 
     &nbsp; <button data-bind="click: customDivide">Divide</button>
+    &nbsp; <button data-bind="click: customPower">Power</button>
+    &nbsp; <button data-bind="click: customClear">Clear</button>
 
-    <p>Answer: <span data-bind="text: customAnswer"></span></p>
+    <p>Answer: <span data-bind="text: customAnswerBinary"></span></p>
+
+    <hr>
+
+    <h2>Unary Operations</h2>
+
+    Input: <input type="text" data-bind="value: customInput">
+
+    <br><br>
+
+    <button data-bind="click: customAbsValue">Absolute Value</button> 
+    &nbsp; <button data-bind="click: customTrunc">Integer Part</button>
+    &nbsp; <button data-bind="click: customSqRoot">Square Root</button> 
+    &nbsp; <button data-bind="click: customCubicRoot">Cubic Root</button> 
+    &nbsp; <button data-bind="click: customExponential">Exponential</button> 
+    &nbsp; <button data-bind="click: customNaturalLogarithm">Natural Logarithm</button> 
+    &nbsp; <button data-bind="click: customBase2Logarithm">Base-2 Logarithm</button> 
+    &nbsp; <button data-bind="click: customBase10Logarithm">Base-10 Logarithm</button> 
+    &nbsp; <button data-bind="click: customClear">Clear</button>
+
+
+
 </body>
 
 <script>
     var viewModel = {
         customA: ko.observable(""),
         customB: ko.observable(""),
-        customAnswer: ko.observable(""),
+        customInput: ko.observable(""),
+        customAnswerBinary: ko.observable(""),
+
+        customClear: function(){
+            this.customA("");
+            this.customB("");
+            this.customInput("");
+            this.customAnswerBinary("");
+        },
 
         // customAdd, customSubtract, so on are your methods of the viewModel class.
         customAdd: function() {
             let rtn_val = parseFloat(this.customA()) + parseFloat(this.customB()); 
-            this.customAnswer(rtn_val); // Setting the value of observable "customAnswer"
+            this.customAnswerBinary(rtn_val); // Setting the value of observable "customAnswerBinary"
         },
 
-        customSubtract: function(){},
+        customSubtract: function(){
+            let rtn_val = parseFloat(this.customA()) - parseFloat(this.customB());
+            this.customAnswerBinary(rtn_val);
+        },
         
-        customMultiply: function(){},
+        customMultiply: function(){
+            let rtn_val = parseFloat(this.customA()) * parseFloat(this.customB());
+            this.customAnswerBinary(rtn_val);
+        },
 
         customDivide: function(){
             try {
@@ -35,7 +78,31 @@
             catch(err) {
                 // Catch the divide by zero exception
             }
-        }
+        },
+
+        customPower: function(){
+
+        },
+
+        customAbsValue: function() {},
+
+        customTrunc: function() {},
+
+        customSqRoot: function() {},
+
+        customCubicRoot: function() {},
+
+        customExponential: function() {},
+
+
+        customNaturalLogarithm: function() {},
+
+        customBase2Logarithm: function() {},
+
+        customBase10Logarithm: function() {}
+
+
+
     };
 
     ko.applyBindings(viewModel);
