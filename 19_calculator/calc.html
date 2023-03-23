@@ -84,21 +84,42 @@
         },
 
         customPower: function () {
+            let x = Math.pow(parseInt(this.customA()), parseInt(this.customB()));
+            this.customAnswerBinary(x);
+        },
+
+        customAbsValue: function () {
+            let x = Math.abs(parseInt(this.customInput()));
+            this.customAnswer(x);
+        },
+
+        customTrunc: function () {
+            let x = Math.trunc(parseFloat(this.customInput()));
+            this.customAnswer(x);
+        },
+
+        customSqRoot: function () {
+            let x = Math.sqrt(parseInt(this.customInput()));
+            this.customAnswer(x);
+        },
+
+        customCubicRoot: function () {
+            let x = Math.cbrt(parseInt(this.customInput()));
+            this.customAnswer(x);
+        },
+
+        customExponential: function () {
+            let x = Math.exp(parseInt(this.customInput()));
+            this.customAnswer(x);
 
         },
 
-        customAbsValue: function () { },
 
-        customTrunc: function () { },
+        customNaturalLogarithm: function () {
+            let x = Math.log(parseInt(this.customInput()));
+            this.customAnswer(x);
 
-        customSqRoot: function () { },
-
-        customCubicRoot: function () { },
-
-        customExponential: function () { },
-
-
-        customNaturalLogarithm: function () { },
+        },
 
         customBase2Logarithm: function () { },
 
