@@ -1,5 +1,10 @@
 <script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
-<!-- Krishna Udupa -->
+<!--
+Authors:
+    Krishna Udupa 
+    Ashish Jain
+-->
+
 <style>
     button {
         margin: 2px;
@@ -22,16 +27,6 @@
 
     <hr>
 
-    <h2>Trigonometric Operations</h2>
-
-    Input: <input type="text" data-bind="value: customTri">
-    <br> <br>
-    <button data-bind="click: customCosx">Cos(x)</button>
-
-    <p>Answer: <span data-bind="text: customAnswerTrigo"></span></p>
-
-    <hr>
-
     <h2>Unary Operations</h2>
 
     Input: <input type="text" data-bind="value: customInput">
@@ -48,20 +43,29 @@
     &nbsp; <button data-bind="click: customBase10Logarithm">Base-10 Logarithm</button>
     &nbsp; <button data-bind="click: customClear">Clear</button>
 
-<<<<<<< Updated upstream
+    <p>Answer: <span data-bind="text: customAnswerUnary"></span></p>
+
+    <hr>
 
     <h2>Trigonometric Operations</h2>
+<pre>Note: Unit of Math.PI is Radians. By default, Math.cos(x): accepts radians.
 
+Math.cos(Math.PI/4) = 0.7071067811865476
+Math.cos(45 * Math.PI/180) = 0.7071067811865476 
+Math.SQRT1_2 = 0.7071067811865476</pre>
+
+<img alt="" border="0" width="600" data-original-height="468" data-original-width="691" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSQ3ZzfXckIwTRe632Ikj_Zieb5GjiKjhgLygiXMA27l7cP9XDc-ZRf9YM_R5UUsB1wkiT9vBX_31LRNEgjHBfmYZdaoG1OaiLltWvAJTjlLuiSeP07cBEtviSnBdWYGEphSggDorzYC8doovalE-5z126JcpoFtHBFYs1tpYixBzj6J5b7Gl8hg9A6A/s600/Trigonometric-Table.png"/>
+
+<br><br>
     Input: <input type="text" data-bind="value: customTriInput">
 
     <br><br>
 
-    <button data-bind="click: customSine">sin(x)</button>
+    <button data-bind="click: customSin">sin(x)</button>
     &nbsp; <button data-bind="click: customCos">cos(x)</button>
+
+    <p>Answer: <span data-bind="text: customAnswerTrigo"></span></p>
     
-=======
-    <p>Answer: <span data-bind="text: customAnswer"></span></p>
->>>>>>> Stashed changes
 
 </body>
 
@@ -70,10 +74,12 @@
         customA: ko.observable(""),
         customB: ko.observable(""),
         customAnswerBinary: ko.observable(""),
-        customTri: ko.observable(""),
+        customAnswerUnary: ko.observable(""),
+        customTriInput: ko.observable(""),
         customAnswerTrigo: ko.observable(""),
         customInput: ko.observable(""),
         customAnswer: ko.observable(""),
+
 
         customClear: function () {
             this.customA("");
@@ -119,67 +125,63 @@
 
         customAbsValue: function () {
             let x = Math.abs(parseInt(this.customInput()));
-            this.customAnswer(x);
+            this.customAnswerUnary(x);
         },
 
         customTrunc: function () {
             let x = Math.trunc(parseFloat(this.customInput()));
-            this.customAnswer(x);
+            this.customAnswerUnary(x);
         },
 
         customSqRoot: function () {
             let x = Math.sqrt(parseInt(this.customInput()));
-            this.customAnswer(x);
+            this.customAnswerUnary(x);
         },
 
         customCubicRoot: function () {
             let x = Math.cbrt(parseInt(this.customInput()));
-            this.customAnswer(x);
+            this.customAnswerUnary(x);
         },
 
         customExponential: function () {
             let x = Math.exp(parseInt(this.customInput()));
-            this.customAnswer(x);
-<<<<<<< Updated upstream
-
+            this.customAnswerUnary(x);
         },
 
 
         customNaturalLogarithm: function () {
             let x = Math.log(parseInt(this.customInput()));
-            this.customAnswer(x);
-
-        },
-
-        customBase2Logarithm: function () { },
-
-        customBase10Logarithm: function () { }
-
-
-=======
-        },
-
-
-        customNaturalLogarithm: function () {
-            let x = Math.log(parseInt(this.customInput()));
-            this.customAnswer(x);
+            this.customAnswerUnary(x);
 
         },
 
         customBase2Logarithm: function () { 
             let x = Math.log2(parseInt(this.customInput()));
-            this.customAnswer(x);
+            this.customAnswerUnary(x);
         },
->>>>>>> Stashed changes
 
         customBase10Logarithm: function () {
             let x = Math.log10(parseInt(this.customInput()));
-            this.customAnswer(x);
+            this.customAnswerUnary(x);
         },
         
-        customCosx: function () {
-            let cosOut = Math.cos(parseInt(this.customTri()));
+        customSin: function () {
+            let x = Math.sin(parseFloat(this.customTriInput()) * Math.PI / 180); 
+
+            this.customAnswerTrigo(x);
+        },
+
+        customCos: function () {
+            let in_number = parseFloat(this.customTriInput())
+            
+            let cosOut = Math.cos( in_number * Math.PI / 180);
+
+            if(cosOut > -0.01 && cosOut < 0.01) {
+                cosOut = Math.round(cosOut)
+            }
+
             this.customAnswerTrigo(cosOut);
+            
         }
     };
 
