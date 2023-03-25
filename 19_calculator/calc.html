@@ -1,4 +1,5 @@
 <script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+<!-- Krishna Udupa -->
 <style>
     button {
         margin: 2px;
@@ -21,6 +22,16 @@
 
     <hr>
 
+    <h2>Trigonometric Operations</h2>
+
+    Input: <input type="text" data-bind="value: customTri">
+    <br> <br>
+    <button data-bind="click: customCosx">Cos(x)</button>
+
+    <p>Answer: <span data-bind="text: customAnswerTrigo"></span></p>
+
+    <hr>
+
     <h2>Unary Operations</h2>
 
     Input: <input type="text" data-bind="value: customInput">
@@ -37,6 +48,7 @@
     &nbsp; <button data-bind="click: customBase10Logarithm">Base-10 Logarithm</button>
     &nbsp; <button data-bind="click: customClear">Clear</button>
 
+<<<<<<< Updated upstream
 
     <h2>Trigonometric Operations</h2>
 
@@ -47,6 +59,9 @@
     <button data-bind="click: customSine">sin(x)</button>
     &nbsp; <button data-bind="click: customCos">cos(x)</button>
     
+=======
+    <p>Answer: <span data-bind="text: customAnswer"></span></p>
+>>>>>>> Stashed changes
 
 </body>
 
@@ -54,14 +69,19 @@
     var viewModel = {
         customA: ko.observable(""),
         customB: ko.observable(""),
-        customInput: ko.observable(""),
         customAnswerBinary: ko.observable(""),
+        customTri: ko.observable(""),
+        customAnswerTrigo: ko.observable(""),
+        customInput: ko.observable(""),
+        customAnswer: ko.observable(""),
 
         customClear: function () {
             this.customA("");
             this.customB("");
             this.customInput("");
             this.customAnswerBinary("");
+            this.customAnswerTrigo("");
+            this.customAnswer("");
         },
 
         // customAdd, customSubtract, so on are your methods of the viewModel class.
@@ -120,6 +140,7 @@
         customExponential: function () {
             let x = Math.exp(parseInt(this.customInput()));
             this.customAnswer(x);
+<<<<<<< Updated upstream
 
         },
 
@@ -135,7 +156,31 @@
         customBase10Logarithm: function () { }
 
 
+=======
+        },
 
+
+        customNaturalLogarithm: function () {
+            let x = Math.log(parseInt(this.customInput()));
+            this.customAnswer(x);
+
+        },
+
+        customBase2Logarithm: function () { 
+            let x = Math.log2(parseInt(this.customInput()));
+            this.customAnswer(x);
+        },
+>>>>>>> Stashed changes
+
+        customBase10Logarithm: function () {
+            let x = Math.log10(parseInt(this.customInput()));
+            this.customAnswer(x);
+        },
+        
+        customCosx: function () {
+            let cosOut = Math.cos(parseInt(this.customTri()));
+            this.customAnswerTrigo(cosOut);
+        }
     };
 
     ko.applyBindings(viewModel);
