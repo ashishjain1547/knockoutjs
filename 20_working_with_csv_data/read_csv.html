@@ -1,0 +1,44 @@
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js"> </script>
+
+<script src="./read_csv.js"> </script>
+
+<body data-bind='template: { afterRender: getData }'>
+
+
+    <table>
+        <tbody data-bind="foreach: in_data">
+            <tr>
+                <td data-bind="text: $index() + 1"></td>
+                <td data-bind="text: Builder"></td>
+                <td data-bind="text: PropertyName"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+
+
+<script>
+    url = "https://raw.githubusercontent.com/ashishjain1547/envesttville_data/main/Inventory.csv"
+    sep = ";"
+
+    let viewModel = function () {
+        self = this;
+
+        self.in_data = ko.observableArray([]);
+
+        self.getData = function () {
+            $.get(url, function (csv_data) {
+
+                self.in_data(read_csv(csv_data, sep))
+            });
+        };
+    }
+
+    ko.applyBindings(viewModel)
+
+</script>
