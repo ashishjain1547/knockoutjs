@@ -61,12 +61,12 @@ Math.SQRT1_2 = 0.7071067811865476</pre>
 
     <br><br>
 
-    <button data-bind="click: customSin">sin(x)</button>
-    &nbsp; <button data-bind="click: customCos">cos(x)</button>
+    <button data-bind="click: customSin">Sin</button>
+    &nbsp; <button data-bind="click: customCos">Cos</button>
     &nbsp; <button data-bind="click: customTan">Tan</button>
+    &nbsp; <button data-bind="click: customCot">Cot</button>
     &nbsp; <button data-bind="click: customCosec">Cosec</button>
     &nbsp; <button data-bind="click: customSec">Sec</button>
-    &nbsp; <button data-bind="click: customCot">Cot</button>
     &nbsp; <button data-bind="click: customClear">Clear</button>
 
     <p>Answer: <span data-bind="text: customAnswerTrigo"></span></p>
@@ -172,7 +172,7 @@ Math.SQRT1_2 = 0.7071067811865476</pre>
         
         customSin: function () {
             let x = Math.sin(parseFloat(this.customTriInput()) * Math.PI / 180); 
-
+            x = parseFloat(x.toFixed(2));
             this.customAnswerTrigo(x);
         },
 
@@ -185,28 +185,49 @@ Math.SQRT1_2 = 0.7071067811865476</pre>
                 cosOut = Math.round(cosOut)
             }
 
+            cosOut = parseFloat(cosOut.toFixed(2));
             this.customAnswerTrigo(cosOut);
             
         },
         
         customTan: function () {
             let x = Math.tan(parseFloat(this.customTriInput())* Math.PI / 180);
-            x=parseFloat(x.toFixed(2));
+            x = parseFloat(x.toFixed(2));
+
+            if (x == 16331239353195370){
+                x = "Not defined"
+            }
+
             this.customAnswerTrigo(x);
         },
         customCosec: function () {
             let x = 1 / (Math.sin(parseFloat(this.customTriInput())* Math.PI / 180));
-            x=parseFloat(x.toFixed(2));
+            x = parseFloat(x.toFixed(2));
+            
+            if (x == 8165619676597685){
+                x = "Not defined"
+            }
+
             this.customAnswerTrigo(x);
         },
+
         customSec: function () {
             let x = 1 / (Math.cos(parseFloat(this.customTriInput())* Math.PI / 180));
-            x=parseFloat(x.toFixed(2));
+            x = parseFloat(x.toFixed(2));
+            if (x == 16331239353195370){
+                x = "Not defined"
+            }
+
             this.customAnswerTrigo(x);
         },
         customCot: function () {
             let x = 1 / (Math.tan(parseFloat(this.customTriInput())* Math.PI / 180));
-            x=parseFloat(x.toFixed(2));
+            x = parseFloat(x.toFixed(2));
+
+            if (x == -8165619676597685){
+                x = "Not defined"
+            }
+
             this.customAnswerTrigo(x);
         }
 
