@@ -54,7 +54,7 @@ Math.cos(Math.PI/4) = 0.7071067811865476
 Math.cos(45 * Math.PI/180) = 0.7071067811865476 
 Math.SQRT1_2 = 0.7071067811865476</pre>
 
-<img alt="" border="0" width="600" data-original-height="468" data-original-width="691" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSQ3ZzfXckIwTRe632Ikj_Zieb5GjiKjhgLygiXMA27l7cP9XDc-ZRf9YM_R5UUsB1wkiT9vBX_31LRNEgjHBfmYZdaoG1OaiLltWvAJTjlLuiSeP07cBEtviSnBdWYGEphSggDorzYC8doovalE-5z126JcpoFtHBFYs1tpYixBzj6J5b7Gl8hg9A6A/s600/Trigonometric-Table.png"/>
+<img alt="" width="600" data-original-height="468" data-original-width="691" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSQ3ZzfXckIwTRe632Ikj_Zieb5GjiKjhgLygiXMA27l7cP9XDc-ZRf9YM_R5UUsB1wkiT9vBX_31LRNEgjHBfmYZdaoG1OaiLltWvAJTjlLuiSeP07cBEtviSnBdWYGEphSggDorzYC8doovalE-5z126JcpoFtHBFYs1tpYixBzj6J5b7Gl8hg9A6A/s600/Trigonometric-Table.png"/>
 
 <br><br>
     Input for Degrees: <input type="text" data-bind="value: customTriInput">
@@ -63,6 +63,11 @@ Math.SQRT1_2 = 0.7071067811865476</pre>
 
     <button data-bind="click: customSin">sin(x)</button>
     &nbsp; <button data-bind="click: customCos">cos(x)</button>
+    &nbsp; <button data-bind="click: customTan">Tan</button>
+    &nbsp; <button data-bind="click: customCosec">Cosec</button>
+    &nbsp; <button data-bind="click: customSec">Sec</button>
+    &nbsp; <button data-bind="click: customCot">Cot</button>
+    &nbsp; <button data-bind="click: customClear">Clear</button>
 
     <p>Answer: <span data-bind="text: customAnswerTrigo"></span></p>
     
@@ -182,7 +187,29 @@ Math.SQRT1_2 = 0.7071067811865476</pre>
 
             this.customAnswerTrigo(cosOut);
             
+        },
+        
+        customTan: function () {
+            let x = Math.tan(parseFloat(this.customTriInput())* Math.PI / 180);
+            x=parseFloat(x.toFixed(2));
+            this.customAnswerTrigo(x);
+        },
+        customCosec: function () {
+            let x = 1 / (Math.sin(parseFloat(this.customTriInput())* Math.PI / 180));
+            x=parseFloat(x.toFixed(2));
+            this.customAnswerTrigo(x);
+        },
+        customSec: function () {
+            let x = 1 / (Math.cos(parseFloat(this.customTriInput())* Math.PI / 180));
+            x=parseFloat(x.toFixed(2));
+            this.customAnswerTrigo(x);
+        },
+        customCot: function () {
+            let x = 1 / (Math.tan(parseFloat(this.customTriInput())* Math.PI / 180));
+            x=parseFloat(x.toFixed(2));
+            this.customAnswerTrigo(x);
         }
+
     };
 
     ko.applyBindings(viewModel);
