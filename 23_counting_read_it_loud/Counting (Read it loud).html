@@ -65,7 +65,8 @@
     <button data-bind="click: next" type="button" class="btn btn-success">Next</button> &nbsp;&nbsp;
     
     <button data-bind="click: reset" type="button" class="btn btn-danger">Reset</button>
-    
+    <br><br>
+    Start from: <input type="text" data-bind="value: startFrom" style="width: 50px;"> &nbsp;&nbsp; <button>Submit</button>
 </div>
 
 
@@ -73,6 +74,8 @@
     var ViewModel = function () {
         var self = this;
         this.current_number = ko.observable();
+
+        this.startFrom = ko.observable()
 
         this.previous = function () {
             if (this.current_number() > 0) {
