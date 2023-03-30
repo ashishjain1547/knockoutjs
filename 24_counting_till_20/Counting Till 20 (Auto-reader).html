@@ -1,0 +1,149 @@
+<head>
+    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+
+    <!-- Google AdSense Using Machine Learning Code -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-3071098372371409",
+            enable_page_level_ads: true
+        });
+    </script>
+    <style>
+        .customTempCodeHolderForSocialMedia {
+            display: none;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .customOl {
+            font-size: 15px;
+        }
+
+        .customPre {
+            white-space: pre-wrap;
+        }
+
+        .customLink {
+            background-color: #4CAF50;
+            border: none;
+            color: white !important;
+            padding: 8px 13px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .customLink:hover {
+            text-decoration: none;
+        }
+
+        .custom_5px_0px_padding_noMargin {
+            padding: 5px 0px;
+            margin: 0px;
+        }
+
+        i.ig {
+            color: green
+        }
+    </style>
+</head>
+<!-- End of 'Personal Posts Menu Template For Copy-Paste'. It started from the top of the page from <HEAD> tag. -->
+
+<body>
+
+
+    <div data-bind="template: { afterRender: initApp } ">
+        <h1 data-bind="text: count, visible: incrementerFlag" class="customCount"></h1>
+        <h1 data-bind="text: prevCount, visible: !incrementerFlag()" class="customCount"></h1>
+
+        <button data-bind="click: (incrementerFlag() == true) ? incrementer : startIncrementerAgain">Start</button>
+        &nbsp;&nbsp;
+        <button data-bind="click: stopIncrementer">Stop</button> &nbsp;&nbsp;
+        <button data-bind="click: resetIncrementer">Reset</button> &nbsp;&nbsp;
+    </div>
+
+    <script>
+        function ItemViewModel() {
+            var self = this;
+
+            self.count = ko.observable(0);
+            self.prevCount = ko.observable(0);
+
+            self.initApp = function () {
+                self.count(0);
+                self.readIt(self.count());
+            }
+
+            self.maxCount = 20;
+            self.incrementerFlag = ko.observable(true);
+
+
+
+            self.incrementer = function () {
+                if (self.count() < self.maxCount) {
+                    self.count(self.count() + 1);
+                    self.readIt(self.count());
+                    self.prevCount(self.count());
+                    setTimeout(self.incrementer, 2000);
+                }
+            }
+
+            self.startIncrementerAgain = function () {
+
+                if (self.prevCount() < self.maxCount) {
+                    self.incrementerFlag(true);
+                    self.count(self.prevCount());
+                    self.incrementer();
+                }
+            }
+
+            self.stopIncrementer = function () {
+                self.count(self.maxCount);
+                self.incrementerFlag(false);
+            }
+
+            self.resetIncrementer = function () {
+                self.count(0);
+                self.prevCount(0);
+                self.incrementerFlag(true);
+                self.stopIncrementer();
+                self.readIt('0');
+            }
+
+            self.readIt = function (in_) {
+                var msg = new SpeechSynthesisUtterance();
+
+                var voices = window.speechSynthesis.getVoices();
+                // 'Google US English' in Google Chrome (Version 98.0.4758.102 (Official Build) (64-bit))
+                msg.voice = voices[1];
+
+                msg.volume = 1; // From 0 to 1
+                msg.rate = 1; // From 0.1 to 10
+                msg.pitch = 0; // From 0 to 2
+
+                msg.text = in_;
+                window.speechSynthesis.speak(msg);
+            }
+
+        }
+
+        var viewModel = new ItemViewModel();
+        ko.applyBindings(viewModel);
+
+
+    </script>
+</body>
+<span style="display: none;">Tags: Mathematical Foundations for Data Science,</span>
