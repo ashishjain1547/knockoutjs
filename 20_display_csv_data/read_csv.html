@@ -5,15 +5,69 @@
 
 <script src="./read_csv.js"> </script>
 
+<style>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    td {
+        padding: 4px;
+    }
+
+</style>
+
 <body data-bind='template: { afterRender: getData }'>
 
 
     <table>
+        <thead>
+            <th>
+                Sno.
+            </th>
+            <th>
+                Builder
+            </th>
+
+            <th>
+                Property Name
+            </th>
+
+            <th>
+                BHK
+            </th>
+
+            <th>
+                Servant Room
+            </th>
+
+            <th>
+                Area (Sqft)
+            </th>
+
+            <th>
+                Construction
+            </th>
+
+            <th>
+                Rate (INR / Sqft)
+            </th>
+
+            <th>
+                City
+            </th>
+
+        </thead>
         <tbody data-bind="foreach: in_data">
             <tr>
                 <td data-bind="text: $index() + 1"></td>
                 <td data-bind="text: Builder"></td>
                 <td data-bind="text: PropertyName"></td>
+                <td data-bind="text: BHK"></td>
+                <td data-bind="text: ServantRoom"></td>
+                <td data-bind="text: Area"></td>
+                <td data-bind="text: Construction"></td>
+                <td data-bind="text: Rate"></td>
+                <td data-bind="text: City"></td>
             </tr>
         </tbody>
     </table>
@@ -24,6 +78,7 @@
 
 <script>
     url = "https://raw.githubusercontent.com/ashishjain1547/envesttville_data/main/Inventory.csv"
+           
     sep = ";"
 
     let viewModel = function () {

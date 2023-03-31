@@ -1,0 +1,162 @@
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js"> </script>
+
+<script src="./read_csv.js"> </script>
+
+<style>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    td,
+    th {
+        padding: 5px;
+    }
+</style>
+
+<body data-bind='template: { afterRender: getData }'>
+
+
+    <table>
+        <thead>
+            <th>
+                Sno.
+            </th>
+
+            <th>Builder
+                <br>
+                <input data-bind="value: builderFilterValue, valueUpdate: 'afterkeydown'" />
+            </th>
+
+            <th>
+                Property Name
+            </th>
+
+            <th>
+                BHK <br>
+                <button data-bind="click: bhkSorting">Sort</button>
+            </th>
+
+            <th>
+                Servant Room
+            </th>
+
+            <th>
+                Area (Sqft)
+            </th>
+
+            <th>
+                Construction
+            </th>
+
+            <th>
+                Rate (INR / Sqft)
+            </th>
+
+            <th>
+                City
+            </th>
+
+        </thead>
+        <tbody>
+            <!-- ko foreach: tableDataList -->
+            <tr>
+                <td data-bind="text: $index() + 1"></td>
+                <td data-bind="text: Builder"></td>
+                <td data-bind="text: PropertyName"></td>
+                <td data-bind="text: BHK"></td>
+                <td data-bind="text: ServantRoom"></td>
+                <td data-bind="text: Area"></td>
+                <td data-bind="text: Construction"></td>
+                <td data-bind="text: Rate"></td>
+                <td data-bind="text: City"></td>
+            </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+
+
+</body>
+
+
+<script>
+    url = "https://raw.githubusercontent.com/ashishjain1547/envesttville_data/main/Inventory.csv"
+
+    sep = ";"
+
+    let viewModel = function () {
+        self = this;
+
+
+
+
+        self.tableDataList = ko.observableArray();
+        self.FilterTblGridArr = ko.observableArray();
+
+        self.tableDataItemViewModel = function (item) {
+            var self = this;
+            this.Builder = ko.observable(item.Builder);
+            this.PropertyName = ko.observable(item.PropertyName);
+            this.BHK = ko.observable(item.BHK);
+            this.ServantRoom = ko.observable(item.ServantRoom);
+            this.Area = ko.observable(item.Area);
+            this.Construction = ko.observable(item.Construction);
+            this.Rate = ko.observable(item.Rate);
+            this.City = ko.observable(item.City);
+        };
+
+        self.getData = function () {
+            $.get(url, function (csv_data) {
+                data = read_csv(csv_data, sep);
+
+                self.tableDataList($.map(data, function (item) {
+                    return new self.tableDataItemViewModel(item);
+                }));
+
+                self.FilterTblGridArr(self.tableDataList());
+            });
+        };
+
+
+        this.builderFilterValue = ko.observable();
+        this.builderFilterArray = ko.computed(function () {
+            var builderFilter = self.builderFilterValue();
+            self.tableDataList([]);
+            if (!builderFilter || builderFilter === "") {
+                self.tableDataList(self.FilterTblGridArr());
+            } else {
+                var data = ko.utils.arrayFilter(self.FilterTblGridArr(), function (elem) {
+                    return elem.Builder().toLowerCase().indexOf(builderFilter.toLowerCase()) !== -1;
+                });
+                self.tableDataList(data);
+            }
+        });
+
+        this.isBHKSortingOrder = ko.observable(true);
+        this.bhkSorting = function () {
+            var data = self.tableDataList();
+            if (self.isBHKSortingOrder()) {
+                data.sort(function (a, b) {
+                    var aID = a.BHK();
+                    var bID = b.BHK();
+                    return (aID === bID) ? 0 : (aID > bID) ? 1 : -1;
+                });
+                self.isBHKSortingOrder(false);
+            } else {
+                data.sort(function (a, b) {
+                    var aID = a.BHK();
+                    var bID = b.BHK();
+                    return (aID === bID) ? 0 : (aID > bID) ? -1 : 1;
+                });
+                self.isBHKSortingOrder(true);
+            }
+            self.tableDataList(data);
+        };
+
+    }
+
+    ko.applyBindings(viewModel)
+
+</script>
