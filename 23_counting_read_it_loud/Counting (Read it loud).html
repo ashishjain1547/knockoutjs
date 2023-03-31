@@ -17,6 +17,10 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
+        body {
+            padding: 10px;
+        }
+
         .customTempCodeHolderForSocialMedia {
             display: none;
         }
@@ -48,6 +52,8 @@
         .customNumWrapper h1 {
             font-size: 220px;
         }
+
+        
     </style>
 </head>
 <br>
@@ -66,7 +72,8 @@
     
     <button data-bind="click: reset" type="button" class="btn btn-danger">Reset</button>
     <br><br>
-    Start from: <input type="text" data-bind="value: startFrom" style="width: 50px;"> &nbsp;&nbsp; <button>Submit</button>
+    Start from: <input type="text" style="width: 50px;" data-bind="value: startFrom"> &nbsp;&nbsp; 
+    <button type="button" class="btn btn-primary" data-bind="click: startFromHere">Submit</button>
 </div>
 
 
@@ -97,6 +104,7 @@
         this.reset = function () {
             this.current_number(0);
             this.readIt(this.current_number());
+            this.startFrom("")
         }
 
         this.readIt = function (in_) {
@@ -113,6 +121,17 @@
             msg.text = in_;
             window.speechSynthesis.speak(msg);
         }
+
+        this.startFromHere = function() {
+            if(this.startFrom().trim().length != 0)
+            try {
+                this.current_number(parseInt(this.startFrom()))
+            }
+            catch(err) {
+                console.log(err)
+            }
+        }
+
     }
     ko.applyBindings(ViewModel);
 </script>
