@@ -1,0 +1,147 @@
+########################  Git Commands With sample exercise 
+
+Note : Commands given in the Sequence of their use...
+
+1) git version - To check the version of used git
+
+F:\>git version
+git version 2.34.1.windows.1
+
+2) git clone <GitHubRepository URL> : To create a clone( Local Repository ) of specified git repository at local machine ( cloning done of all branches including main )
+
+F:\WorkSpace\GIT>git clone https://github.com/ashishjain1547/knockoutjs.git
+
+3) Switching in between branches :
+
+To switch into main branch : 
+
+F:\WorkSpace\GIT\knockoutjs>git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+To switch into dev branch :
+
+F:\WorkSpace\GIT\knockoutjs>git checkout dev
+Switched to branch 'dev'
+Your branch is up to date with 'origin/dev'.
+
+4)git pull : Is used to fetch and download content from a remote repository and immediately update the local repository to match that content.
+
+F:\WorkSpace\GIT\knockoutjs>git pull
+remote: Enumerating objects: 16, done.
+remote: Counting objects: 100% (16/16), done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 10 (delta 4), reused 7 (delta 3), pack-reused 0
+Unpacking objects: 100% (10/10), 2.13 KiB | 6.00 KiB/s, done.
+From https://github.com/ashishjain1547/knockoutjs
+   6b624eb..8532f9d  dev        -> origin/dev
+   bc71ee6..3ed16f1  main       -> origin/main
+Updating 6b624eb..8532f9d
+Fast-forward
+ .../Counting (Read it loud).html                    | 21 ++++++++++++++++++++-
+ .../Counting Till 20 (Auto-reader).html             |  6 ++++++
+ 2 files changed, 26 insertions(+), 1 deletion(-)
+
+	
+5) git status : To check the current status of repositoty for any changes
+
+F:\WorkSpace\GIT\knockoutjs>git status
+On branch dev
+Your branch is up to date with 'origin/dev'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        25_ValueAndTextBinding.html
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+6) git add -A : To add all changed file into stagging state ( To start tracking of changes ..)
+
+F:\WorkSpace\GIT\knockoutjs>git add -A
+F:\WorkSpace\GIT\knockoutjs>git status
+On branch dev
+Your branch is up to date with 'origin/dev'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   25_ValueAndTextBinding.html
+
+7) git commit -m "Commit Message" : To commit changes locally in git repository
+
+F:\WorkSpace\GIT\knockoutjs>git commit -m "Program Clean UP"
+[dev bdcbecd] Program Clean UP
+ 1 file changed, 28 insertions(+)
+ create mode 100644 25_ValueAndTextBinding.html
+
+8) git push  : To push changes into a online repository ( like dev branch ) for merging with main branch ( Merge Request )
+
+F:\WorkSpace\GIT\knockoutjs>git push
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/ashishjain1547/knockoutjs.git/'
+
+F:\WorkSpace\GIT\knockoutjs>git push
+info: please complete authentication in your browser...
+
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 620 bytes | 88.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/ashishjain1547/knockoutjs.git
+   8532f9d..bdcbecd  dev -> dev
+
+F:\WorkSpace\GIT\knockoutjs>
+
+Note : Now Merge request sent to owner of the repository to verify changes and merging content in main branch.
+
+####################################################################
+
+
+1) Exploring the content of a repository ( For Ex - knockoutjs )
+
+F:\WorkSpace\GIT\knockoutjs>dir
+ Volume in drive F is others
+ Volume Serial Number is 788C-BEEB
+
+ Directory of F:\WorkSpace\GIT\knockoutjs
+
+03/31/2023  02:24 PM    <DIR>          .
+03/31/2023  02:24 PM    <DIR>          ..
+03/31/2023  02:23 PM    <DIR>          10_2d_matrix
+03/31/2023  02:23 PM               230 11_factorial using recursion.html
+03/31/2023  02:23 PM    <DIR>          12_lcm_of_two_numbers
+03/31/2023  02:23 PM    <DIR>          13_lcm_of_three_numbers
+03/31/2023  02:23 PM             1,035 14_get_second_max_num.html
+03/31/2023  02:23 PM    <DIR>          15_working_of_factorization
+03/31/2023  02:23 PM    <DIR>          16_hcf_of_two_numbers
+03/31/2023  02:23 PM    <DIR>          17_hcf_of_3_numbers
+03/31/2023  02:23 PM    <DIR>          18_hcf_of_n_numbers
+03/31/2023  02:23 PM    <DIR>          19_calculator
+03/31/2023  02:23 PM    <DIR>          1_hello world
+03/31/2023  02:24 PM    <DIR>          20_display_csv_data
+03/31/2023  02:24 PM    <DIR>          21_display_sort_filter_csv_data
+03/31/2023  02:24 PM    <DIR>          22_CRUD_Sort_Filter_Paginate_with_java_as_backend
+03/31/2023  02:24 PM    <DIR>          23_counting_read_it_loud
+03/31/2023  02:24 PM    <DIR>          24_counting_till_20
+03/31/2023  02:23 PM    <DIR>          2_addition
+03/31/2023  02:23 PM    <DIR>          3_counter
+03/31/2023  02:23 PM    <DIR>          4_factorial
+03/31/2023  02:23 PM    <DIR>          5_prime_factors_of_a_number
+03/31/2023  02:23 PM    <DIR>          6_fibonacci
+03/31/2023  02:23 PM    <DIR>          7_prime_number
+03/31/2023  02:23 PM    <DIR>          8_min_max_random
+03/31/2023  02:23 PM    <DIR>          9_check_palindrome
+03/31/2023  02:23 PM            68,388 knockout-3.5.1.js
+03/31/2023  02:23 PM                26 README.md
+               4 File(s)         69,679 bytes
+              24 Dir(s)  95,851,773,952 bytes free
+			  
+			  
+
+2) Repository : A repository can contain branches ( main/master and other branches )
+
+                Repository can be public or private . And owner of repository provides access rights to other peoples.
+
