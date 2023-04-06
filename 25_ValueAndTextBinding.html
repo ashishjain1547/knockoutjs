@@ -1,0 +1,28 @@
+<script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"> </script>
+
+<body>
+    
+    <p>More Text:</p>
+    <p data-bind="text: more_text"></p>
+    <input data-bind="value: userName" />
+
+    <br><br>
+
+    You Wrote : 
+    <p name="FirstPara" data-bind="text: userName"></p>
+    
+</body>
+
+<script>
+    console.log("Hello World Program Testing")
+
+    
+
+    var viewModel = {
+       more_text: ko.observable("How are you, dear!") ,
+       userName: ko.observable("Type Here.. ")
+
+    };
+
+    ko.applyBindings(viewModel);
+</script>
