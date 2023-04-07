@@ -1,0 +1,70 @@
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+
+    <style>
+        
+    </style>
+</head>
+
+<div>
+    <label for="num1">Numerator 1:</label>
+    <input type="number" id="num1" data-bind="value: num1" />
+    /
+    <label for="den1">Denominator 1:</label>
+    <input type="number" id="den1" data-bind="value: den1" />
+    <br /><br />
+    <label for="num2">Numerator 2:</label>
+    <input type="number" id="num2" data-bind="value: num2" />
+    /
+    <label for="den2">Denominator 2:</label>
+    <input type="number" id="den2" data-bind="value: den2" />
+    <br /><br />
+    <button data-bind="click: addFractions">Add Fractions</button>
+    <br /><br />
+    <label>Result:</label>
+    <span data-bind="text: result"></span>
+
+    <h2>Solution</h2>
+    <!--ko foreach: mySolution -->
+    <p data-bind="text: $data"></p>
+    <!-- /ko -->
+</div>
+
+<script>
+    function Fraction(numerator, denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
+    }
+
+    function ViewModel() {
+        var self = this;
+
+        self.num1 = ko.observable();
+        self.den1 = ko.observable();
+        self.num2 = ko.observable();
+        self.den2 = ko.observable();
+        self.result = ko.observable();
+
+        self.mySolution = ko.observableArray();
+
+        self.addFractions = function () {
+            var frac1 = new Fraction(parseInt(self.num1()), parseInt(self.den1()));
+            var frac2 = new Fraction(parseInt(self.num2()), parseInt(self.den2()));
+            var commonDenominator = lcm(frac1.denominator, frac2.denominator);
+            var numerator = frac1.numerator * (commonDenominator / frac1.denominator) + frac2.numerator * (commonDenominator / frac2.denominator);
+            self.result((numerator / commonDenominator).toString());
+        };
+
+        function gcd(a, b) {
+            return b == 0 ? a : gcd(b, a % b);
+        }
+
+        function lcm(a, b) {
+            return (a * b) / gcd(a, b);
+        }
+    }
+
+    ko.applyBindings(new ViewModel());
+
+</script>
