@@ -1,0 +1,206 @@
+<head>
+    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+
+    <!-- Google AdSense Using Machine Learning Code -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-3071098372371409",
+            enable_page_level_ads: true
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        div.customNumberWrapper,
+        div.customImgWrapper {
+            display: inline-block;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .customOl {
+            font-size: 15px;
+        }
+
+        .customPre {
+            white-space: pre-wrap;
+        }
+
+        .customLink {
+            background-color: #4CAF50;
+            border: none;
+            color: white !important;
+            padding: 8px 13px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .customLink:hover {
+            text-decoration: none;
+        }
+
+        .custom_5px_0px_padding_noMargin {
+            padding: 5px 0px;
+            margin: 0px;
+        }
+
+        i.ig {
+            color: green
+        }
+
+        .customCount {
+            text-align: center;
+            font-size: 220px;
+        }
+
+        div.customBtnWrapper {
+            text-align: center;
+        }
+    </style>
+</head>
+<!-- End of 'Personal Posts Menu Template For Copy-Paste'. It started from the top of the page from <HEAD> tag. -->
+
+<body>
+
+
+    <div data-bind="template: { afterRender: initApp } " style="text-align: center;">
+        <div style="display: inline-block;">
+            <table>
+                <tr>
+                    <td>
+                        <h1 data-bind="text: count, visible: incrementerFlag" class="customCount"></h1>
+                        <h1 data-bind="text: prevCount, visible: !incrementerFlag()" class="customCount"></h1>
+                    </td>
+
+                    <td>
+                        <img data-bind="attr: {src: imgSrc}" alt="" style="height: 264px; width: 264px;">
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="customBtnWrapper">
+            <button class="btn btn-success"
+                data-bind="click: (incrementerFlag() == true) ? incrementer : startIncrementerAgain">Start</button>
+            &nbsp;&nbsp;
+            <button class="btn btn-danger" data-bind="click: stopIncrementer">Stop</button> &nbsp;&nbsp;
+            <button class="btn btn-info" data-bind="click: resetIncrementer">Reset</button> &nbsp;&nbsp;
+        </div>
+
+
+    </div>
+
+    <script>
+        let listOfImages = [
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3mzN_jUh19ceE7-nW2yNbpkvkaFaPXIxUXK5l9pXKmmb1i0LzHikvxagDOP-GIh--7WPm4-rR6x2svZuwDofXcjPYtEjJG7hlQQQ1HrVsyx8_fQ7cdGKEiGQFCDLvPqttThjdOgYP2rYffMp9YoXMGbrLJ9xbivbg7luDDKI4feRb6IkHg1WQUv1eGQ/s600/0.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaoAKi_PplWbPK5SmNQjcQXBt7gqHfY9-CgQ7lbsc9agMWP3Eqa5n8i21uoNVfIm4jgxXke9yihKAKfYyfm06pBzlbXdqxyPuMXIUUHsVM9s1KLVTpX4YPau8wmLQbDjOsYojgqSLVBdFtAqE3alfzxsXgt9FnJsSNZAz44ZLeCIvJqXnMeBlenMkDAw/s600/1.jpg",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh40Km2eINCHWGrMUW4zKembS73V4PbI8JbtoT-NO0VETHvdnIq_ApMtFzYApXj8YXmPSYDds6gjkEELZjAvizJNkutD8mTBCWl3Hr5Hr-5DpN0SVH9D-1OkwSdWgUy1nZbUhNArlfkKjRS6yVqzpkdT4BTqOlt6EQb1wN6dTqHkeYQw3e4owjB43jsnA/s600/2.jpg",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh5Rmj7DM7C8ymjzczlvJtqWRHeoz1Wl8scit6kLEYAknExnpMVkbekyU8kAI3wJZ5piA-eCPWjX90tDz71fTlj1Vs8II383IDHBo1st-xDXHYFRtOpYc81SZC-CmRHltAcyDL99xC9UpQZ_pLFov5MZ1uOmtgXK9R35OEtYjBCAc_4gSMxqVc5MmBPWw/s600/3.webp",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggEXYcNl4b3pUBnI_7Wul9aOo2rxnHmaI9ijjpK97RSJN3dyUH5glIl4D5bHyEAR6LXMhEtptuOb0FdUhuOCdp_qz5hMC5MbujL48FZW5SfgLsU0jXuldFnKbo9tDUIc60ljlY70cdYKyE7cdoTgkj5Q7EnppyBIiSc8SETCONyI5pQN9jUj0ZCA4UtA/s600/4.jpg",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihYKECQfgryIzYanKtvNsG0kS7zNCb9QmuLjEtAvPHlKBZXou3t0G7fMcOOoOIY7JQO60fPCW56Orciv7xf2LmptrODgafdWabhhzlPXRsHEYwcDIZZeKpWyk40Q7FDqoTBMudSavtHhsCO-sFtxdD9h6bp98Nc_jhKcj1WbKjHJCGoqd66lqkGQPoiw/s600/5.jpg",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3kn_CD3IjZl7VrOn8V0m_fqwt6v92CQAHcOCxCpslH98SBGXM0V-p7MRfMZ9BHOXCn7fHbH8_UgmdI5D9tWavz4tThndgpK5iuKOuDbx1i3DMAo6FCeBrN0tTcsM4IeKFuEobaf5GBz_oBpizwoB6pO2YaonDUbGSzCtPG39sd2f90ZtqwWjqWH6v0A/s600/6.webp",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXnqSRw7NBiyRl0MOqVO54BFc38cGP--Q6FbDOjTcql8_3ceKWFLZkUAmIzGZ1kLURcPms0YZ-z3neab3rTvbzro_wpOwiZ7InxPuNsPE5ojpJi6yQ-wcSemt1eytTGcpX3Z52OZ6MkpnaCsXZKEsYxGf50ccsXZRWTd0eNQVdHL4jqlhGcxsNoYB5Lw/s600/7.jpg",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8gzVJZzNG7QC-T2TXZwDyQpUbD-fhmg0oGXaf-C-FPp7wGIigsZchZIz02p1jOHvMJZh3UgA8Dwx6QoLPQtIAIdy0wEak9G8pOo-pZYk47UjO3l8EsF9RfAZnKa8SnZMO_IzOjvFidiW8zlf67oK3R2e1vnFTO3kHWbK_AtPM8w7FWre6RAovDUBXIg/s600/8.gif",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIPh3VVrLYBeO0TYgId23dC5c2VjqfGSz_eqERUGvXJXO9daqlAf9sVw1qmoHQlrDG4h8b4MXiPtgjKxQqBZMx_iCTaR0XPBKHMnoi430XK856HxZSddK5rVOYF5CDgAqbEBmh2az8SmDoTCDgIyldq27va_TMAynGpvlL2NvcSnhYItpfFAiwrPr1Vw/s600/9.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh5Wl_CpPLB0kj08_QnxZLsUJNiOeZx0tI9PAHuzt0BYovLu1jKECmx4O1VPqXmrg4A6peeRG_QpCDLipML8Fa4LWSjWp03NXDpdZXmQRZu326TfpVah5fAqNZTL_AnXXGv5cCNqBFPT9v_lSW_wxAD9zLkRNRDaOSCHoeqJDCE2A8U3PYp_rluz8LBHA/s600/10.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzRuu7VtoYuf9mFutg1tX4mfkunkWsTYzre6v6Ypzbg3gev6H_t7uLJbH_cuDwndmEjct8B9Xp1uG8A8E01v93flbyveM0xVv-qLB1gAjH2M2Awb5YWOIYEtC5ElFhK1zDS7EmhBjC3yW_IJza9IKd37qTDg5j2tsxfOCSvSjSjovbjaWIMLRc9292ZA/s600/11.jpg",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge-NxAm3CvD9j6fvq69i_WZG1PfB-L-HYNSr4CNjOdianEu6GcGGBxlnHrNSpwuXJx7OZWebICiArAm4TAEs3Oqg9rITxWJkyhTUKdtkF83yM7YPD1E_jxYFQdUDCmGHo6eFR3IuojciQkc5TB4x6QjTV-LY9ZJ5nIkyyMP8ncJL43CkXtqbA1q8gQag/s600/12.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTx2r_oPdT2nFZFOFtYoM2y5c_Fo-YWt6KUjxqGNDu02vF7ublm65zRWra-PuIa0XeVCQ_URi4mWT_39Fwg4DIBC3i-AE-FksQo7ddn1cnFKkmVdcPQOQOGcwRxXQClOz5XQ1pGI7SI7RjOY7tXNRalFS3dGpvA5rD_MHMM8kz9cx8N_GrceAeyEIKDQ/s600/13.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmKlBAzQ-kIUQFaewaoIrGVrJ55A0P1qTC4ToTqcXiKkDnFMuUvJV28qfXjdUHtzg2zFkkFCAtkq2sQT5zsolXVgXIkw5YW3nK6WYonw8LfGu01T17mzUCSJYD4Ph-JC8VPrt0wzf0veKhEBu7OKPiyXYQYPFT2JC9GHhWa_cxDTpDBGJuJEn_Hh1Jzg/s600/14.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEicNnuzo913DMI55C8mCo6UDbRWzsRdmiihNdPlMFYEbD8_YvP6f2RHqUwS475UW2w5DPUDdrmieGDU6OEFm19WUSrieNcsl4J3dg3OWvkgqtkXIWHeDl9jfLUK2vZao3uZNAAVcU3Zz0FWpkrxERcFpwFCNOaSJiljtLG1edb2M6mRjLHH7mDP8u0yYA/s600/15.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3U-uh5s8n57ApW39YWUO-9vEE-LWeSmRxJMWLjoPkP6FjQq94ZV0U1mf1JLwJyhNIlt37ytO8VhCUbaFlnAWfRvqPyOV_-fLDoVlGpPgnWG1FhryFC2TuV7nKwjfc_7o6o_wJJRM7Mw6gmFfymF-H6BLopA8pEpTefiPa248xtXFgZSP76fBfvycOqg/s600/16.webp",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnYlFTzdR_rZlKAyaywPrNxS6_VshK7Lt_yeumUdnGgUeqkpEb4_X-GbSJ2UQO-x1wtMW938gtFahXqy45KnQetMgQV_Hd2ZvHX5ZloXaqlWAgSWZU5EPzZpwLvYdWodrLwDvWElq8K1xSO26BaZPXOdheoUjrfEWFWBz7a3q17NedM1arguNVtSX_aw/s600/17.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEip3V2hOy67IUUXXR8HwNe9D2ZndUQhtAdN0DpefDavnT3gXozCTjPH_JbjNmIBSJiY6pDK_-ckksCtOv3L2-3iylVM_GRps0wGIqKcIhMyyUfiM_F2gSvQHrrjeZ3-9md62KZIv20hg-gc9Q02tj1LmEhdqhtzdFBJ_cSWDR7Nl8z6x0xy3-lz-j3B1g/s600/18.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmKg1qL14E90dy9bGaYzIPyYMdpz8DX6H0jxKwesUurcS23W8BkZfOOK0Wgon8jeJSoniWcEO8TNiBF5Ek9xqWU_SP9TQw5-QG4l9pWLEvDxHSZWYHkt-GckhzvGnFk75XKupBOKb6ZRvXWTzECy0DYtMK4_4OefN48hPJGHTbK5S1B16iYb1DpduW-A/s600/19.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmaPW27XL-1okgqwAfYGilgVLi0EqFd0bxMRuGygHy7JZ7OzMDy3a05sZlZM7TEkhKLy-j986FRcGe8o1IrujPz-i0Sq6qhuk_kU_964db-kIVQhe_PvrFf3BOlf-GO5DwMQsFZXmu_YyFfjoA_mJ7mCXigQrZsDa5mvlNmhb0vW-Oc8cE-IDcKX6e0A/s600/20.jpg"
+        ]
+
+        function ItemViewModel() {
+            var self = this;
+
+            self.count = ko.observable(0);
+            self.prevCount = ko.observable(0);
+
+            self.initApp = function () {
+                self.count(0);
+                self.readIt(self.count());
+            }
+
+            self.maxCount = 20;
+            self.incrementerFlag = ko.observable(true);
+
+            self.imgSrc = ko.computed(function () {
+                return listOfImages[self.count()]
+            }, self);
+
+            self.incrementer = function () {
+                if (self.count() < self.maxCount) {
+                    self.count(self.count() + 1);
+                    self.readIt(self.count());
+                    self.prevCount(self.count());
+                    setTimeout(self.incrementer, 2000);
+                }
+            }
+
+            self.startIncrementerAgain = function () {
+
+                if (self.prevCount() < self.maxCount) {
+                    self.incrementerFlag(true);
+                    self.count(self.prevCount());
+                    self.incrementer();
+                }
+            }
+
+            self.stopIncrementer = function () {
+                self.count(self.maxCount);
+                self.incrementerFlag(false);
+            }
+
+            self.resetIncrementer = function () {
+                self.count(0);
+                self.prevCount(0);
+                self.incrementerFlag(true);
+                self.stopIncrementer();
+                self.readIt('0');
+            }
+
+            self.readIt = function (in_) {
+                var msg = new SpeechSynthesisUtterance();
+
+                var voices = window.speechSynthesis.getVoices();
+                // 'Google US English' in Google Chrome (Version 98.0.4758.102 (Official Build) (64-bit))
+                msg.voice = voices[1];
+
+                msg.volume = 1; // From 0 to 1
+                msg.rate = 1; // From 0.1 to 10
+                msg.pitch = 0; // From 0 to 2
+
+                msg.text = in_;
+                window.speechSynthesis.speak(msg);
+            }
+
+        }
+
+        var viewModel = new ItemViewModel();
+        ko.applyBindings(viewModel);
+
+
+    </script>
+</body>
+<span style="display: none;">Tags: Mathematical Foundations for Data Science,</span>
