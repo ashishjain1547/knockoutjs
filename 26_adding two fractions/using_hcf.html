@@ -6,6 +6,10 @@
         p {
             text-align: center;
         }
+
+        input {
+            max-width: 60px;
+        }
     </style>
 </head>
 
@@ -51,6 +55,8 @@
         self.mySolution = ko.observableArray();
 
         self.addFractions = function () {
+            self.mySolution([]);
+
             var frac1 = new Fraction(parseInt(self.num1()), parseInt(self.den1()));
             var frac2 = new Fraction(parseInt(self.num2()), parseInt(self.den2()));
 
@@ -70,10 +76,23 @@
             + "+" + frac2.numerator.toString() + "*" + frac1.denominator.toString());
             self.mySolution.push("--------------------------");
             self.mySolution.push(frac1.denominator.toString() + "*" + frac2.denominator.toString());
-            self.mySolution.push("After the intermediate calculations:");
+            self.mySolution.push("After the intermediate sum and multiplication:");
             self.mySolution.push(numerator);
             self.mySolution.push("------------");
             self.mySolution.push(commonDenominator);
+            
+            let gcd_val = gcd(numerator, commonDenominator);
+
+            self.mySolution.push("Next, we need to divide numerator and denominator by their HCF, i.e. " + gcd_val);
+
+            
+            numerator = numerator / gcd_val;
+            commonDenominator = commonDenominator / gcd_val;
+
+            self.mySolution.push(numerator);
+            self.mySolution.push("------------");
+            self.mySolution.push(commonDenominator);
+            
             
         };
 
