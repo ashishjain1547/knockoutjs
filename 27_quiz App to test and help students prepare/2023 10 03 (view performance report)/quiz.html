@@ -1,0 +1,550 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+<style>
+    div.customQuizWrapper,
+    div.customScoreCardWrapper,
+    div.customContextualData {
+        padding: 10px;
+    }
+
+    pre.green {
+        display: block;
+        background-color: rgb(0, 97, 0);
+        border-radius: 5px;
+        padding: 10px;
+        color: white;
+    }
+
+    pre.red {
+        display: block;
+        background-color: rgb(185, 24, 24);
+        border-radius: 5px;
+        padding: 10px;
+        color: white;
+    }
+
+    pre.nocolor {
+        display: block;
+        background-color: rgb(212, 198, 198);
+        border-radius: 5px;
+        padding: 10px;
+        color: black;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
+<script>
+    let questions = [
+        {
+            "sno": "1",
+            "ques": `For the pattern /truman/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+            "ans": ["0110"],
+            "qtype": "mcq"
+        },
+        {
+            "sno": "2",
+            "ques": `For the pattern /wo[od][de]house/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+            "ans": ["1265", "2476"],
+            "qtype": "mcq"
+        },
+        {
+            "sno": "3",
+
+            "ques": `For the pattern /true*man/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['3564', '0110'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "4",
+            "ques": `For the pattern /wilco[cx]k*s*/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['3212', '2345'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "5",
+            "ques": `For the pattern /p.*woodhouse/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['1265'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "6",
+            "ques": `For the pattern /^2/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['2233', '2365', '2476', '2345'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "7",
+            "ques": `For the pattern /[78]....$/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['5678', '3212', '3564'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "8",
+            "ques": `For the pattern /^[^2]/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['9876', '5678', '5423', '1006', '6213', '1265', '4290', '6521', '3212', '3564', '0110'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "9",
+            "ques": `For the pattern /true?man/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['3564', '0110'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "10",
+            "ques": `For the pattern /woodhouse|woodcock/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['2365', '1265'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "11",
+            "ques": `For the pattern /wood(house|cock)/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['2365', '1265'],
+            "qtype": "mcq"
+        },
+
+        {
+            "sno": "12",
+            "ques": `For the pattern /wilco[cx]k*s*|wood(house|cock)/gm : which records from the above data will be referenced?`,
+            "section": ["Regex"],
+            "options": ['2233', '9876', '5678', '2365', '5423', '1006', '6213', '1265', '4290', '2476', '6521', '3212', '3564', '2345', '0110'],
+
+            "ans": ['2365', '1265', '3212', '2345'],
+            "qtype": "mcq"
+        },
+    ];
+
+    let inRecords = `2233:charles harris  :g.m.     :sales     :12/12/52: 90000
+9876:bill johnson    :director :production:03/12/50:130000
+5678:robert dylan    :d.g.m.   :marketing :04/19/43: 85000
+2365:john woodcock   :director :personnel :05/11/47:120000
+5423:barry wood      :chairman :admin     :08/30/56:160000
+1006:gordon lightfoot:director :sales     :09/03/38:140000
+6213:michael lennon  :g.m.     :accounts  :06/05/62:105000
+1265:p.j. woodhouse  :manager  :sales     :09/12/63: 90000
+4290:neil o'bryan    :executive:production:09/07/50: 65000
+2476:jackie wodehouse:manager  :sales     :05/01/59:110000
+6521:derryk o'brien  :director :marketing :09/26/45:125000
+3212:bill wilcocks   :d.g.m.   :accounts  :12/12/55: 85000
+3564:ronie trueman   :executive:personnel :07/06/47: 75000
+2345:james wilcox    :g.m.     :marketing :03/12/45:110000
+0110:julie truman    :g.m.     :marketing :12/31/40: 95000`
+
+</script>
+
+
+<body>
+    <div class="customContextualData" data-bind="if: inRecordsFlag">
+        <pre data-bind="text: inRecords"></pre>
+    </div>
+    <div class="customQuizWrapper" data-bind="ifnot: submittedFlag">
+        <div class="customQuestionWrapper" data-bind="template: { afterRender: initApp } ">
+            Question (<span data-bind="text: custom_qno"></span>)
+
+            <pre data-bind="html: currentQuestion"></pre>
+
+            <!-- ko if: questionType() == 'scq' -->
+            <!-- ko foreach: answerOptions -->
+
+            <pre><input type="radio" data-bind="attr: { 'id': 'label_' + $index(), 
+                    'value': $data }, checked: $parent.scqAnswer()" 
+                    name="scq_options"> <label data-bind="html: $data, 
+                    attr: { 'for': 'label_' + $index() }"></label></pre>
+
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko if: questionType() == 'mcq' -->
+            <!-- ko foreach: answerOptions -->
+
+            <pre><input type="checkbox" data-bind="attr: { 'id': 'label_' + $index(), 'value': $data },
+                    checked: $parent.mcqAnswers()" name="mcq_options"> <label data-bind="html: $data, 
+                    attr: { 'for': 'label_' + $index() }"></label></pre>
+
+            <!-- /ko -->
+            <!-- /ko -->
+
+        </div>
+
+        <!-- button data-bind="click: saveAnswer">Save</button -->
+
+        <button class="btn btn-primary" data-bind="click: showPreviousQuestion">Previous</button>
+
+        <button class="btn btn-primary" data-bind="click: showNextQuestion">Next</button>
+
+        <button class="btn btn-primary" data-bind="click: submitAnswersAndGetScore">Submit</button>
+    </div>
+
+    <div class="customScoreCardWrapper" data-bind="if: submittedFlag">
+        <h2>
+            Your score is: <span data-bind="text: finalScore"></span>
+            <br> <br>
+            <button class="btn btn-success" data-bind="click: viewPerformanceReport">View Performance Report</button>
+        </h2>
+        <br>
+        <div class="customPerformanceReportWrapper" data-bind="if: performanceReportFlag">
+            <b data-bind="html: performanceReportMessage"></b>
+            <br><br>
+            <!-- ko foreach: questionsInPerformanceReport -->
+            <div class="customQuestionWrapper" data-bind="with: $data">
+                Question:
+
+                <pre data-bind="html: ques"></pre>
+
+                <!-- ko foreach: options -->
+
+                <pre data-bind="css: $parent.optionColors[$index()]"><label data-bind="html: $data"></label></pre>
+
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+
+
+
+        </div>
+    </div>
+</body>
+<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"></script>
+
+
+<script>
+    function shuffle(array) {
+        /* The de-facto unbiased shuffle algorithm is the Fisher-Yates (aka Knuth) Shuffle. */
+        let currentIndex = array.length, randomIndex;
+
+        // While there remain elements to shuffle.
+        while (currentIndex > 0) {
+
+            // Pick a remaining element.
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+
+    let shuffleQuestionsFlag = false;
+    let shuffleOptionsFlag = false;
+
+
+    var ViewModel = function () {
+        var self = this;
+
+        self.inRecordsFlag = ko.observable(true);
+        self.inRecords = ko.observable(inRecords);
+
+        self.custom_qno = ko.observable(1);
+        self.currentQuestion = ko.observable();
+        self.questionType = ko.observable("scq"); // Possible values: scq, mcq, exactAnswer
+
+        self.answerOptions = ko.observableArray();
+
+        self.questionsYetToAsk = ko.observableArray();
+        for (let i = 0; i < questions.length; i++) {
+            self.questionsYetToAsk.push(i);
+        }
+
+        self.questionsAsked = ko.observableArray([]);
+
+        self.scqAnswer = ko.observable();
+        self.mcqAnswers = ko.observableArray([]);
+        self.savedAnswers = ko.observableArray([]);
+
+        self.submittedFlag = ko.observable(false);
+        self.correctCount = ko.observable(0);
+        self.incorrectCount = ko.observable(0);
+        self.unansweredCount = ko.observable(0);
+        self.finalScore = ko.observable("");
+
+        self.performanceReportFlag = ko.observable(false);
+        self.questionsInPerformanceReport = ko.observableArray([]);
+        self.performanceReportMessage = ko.observable("");
+
+        self.initApp = function () {
+
+            // Returns a random integer from 1 to 100:
+            // Math.floor(Math.random() * 100) + 1;
+
+            self.showQuestion(self.getQuestion());
+        }
+
+        self.showQuestion = function (question) {
+
+            console.log("showQuestion() question['sno']:", question['sno']);
+            console.log(self.questionsAsked());
+            console.log(self.questionsYetToAsk());
+
+            self.currentQuestion(question['ques']);
+
+            self.questionType(question['qtype']);
+
+            if (self.questionType() == 'scq' || self.questionType() == 'mcq') {
+                if (shuffleOptionsFlag == true) {
+                    /* Enable shuffling of options */
+                    ops = question['options'];
+                    shuffle(ops);
+                    self.answerOptions(ops);
+                } else {
+
+                    /* Disable shuffling of options */
+                    self.answerOptions(question['options']);
+
+                }
+            }
+
+            self.scqAnswer("");
+            self.mcqAnswers([]);
+        }
+
+        self.getQuestion = function () {
+            let randomIx, item;
+            if (shuffleQuestionsFlag == true) {
+                randomIx = Math.floor(Math.random() * self.questionsYetToAsk().length)
+
+                item = questions[self.questionsYetToAsk()[randomIx]];
+
+                if (randomIx > -1) { // only splice array when item is found
+                    // 2nd parameter means remove one item only
+                    self.questionsYetToAsk.splice(randomIx, 1);
+                }
+
+                self.questionsAsked.push(parseInt(item['sno']) - 1);
+
+            } else {
+                /* No shuffling of questions */
+                randomIx = self.questionsYetToAsk()[0];
+
+                item = questions[self.questionsYetToAsk().shift()];
+
+                self.questionsAsked.push(parseInt(item['sno']) - 1);
+            }
+
+            console.log("getQuestion() randomIx:", randomIx);
+            return item;
+        }
+
+        self.showPreviousQuestion = function () {
+            self.saveAnswer();
+
+            if (self.custom_qno() > 1) {
+                self.custom_qno(self.custom_qno() - 1);
+
+                let ix = self.questionsAsked()[self.custom_qno() - 1];
+
+                self.showQuestion(questions[ix]);
+
+                if (typeof self.savedAnswers()[self.custom_qno() - 1] != 'undefined') {
+                    self.setAnswer(self.savedAnswers()[self.custom_qno() - 1]);
+                }
+            }
+        }
+
+        self.showNextQuestion = function (question) {
+            self.saveAnswer();
+
+            if (self.custom_qno() < self.questionsAsked().length) {
+                self.custom_qno(self.custom_qno() + 1);
+
+                let ix = self.questionsAsked()[self.custom_qno() - 1];
+
+                self.showQuestion(questions[ix]);
+
+                if (typeof self.savedAnswers()[self.custom_qno() - 1] != 'undefined') {
+                    self.setAnswer(self.savedAnswers()[self.custom_qno() - 1]);
+                }
+            }
+
+            else if (self.custom_qno() >= self.questionsAsked().length
+                && self.custom_qno() < questions.length) {
+                self.custom_qno(self.custom_qno() + 1);
+                self.showQuestion(self.getQuestion());
+            }
+        }
+
+        self.saveAnswer = function () {
+            if (self.custom_qno() > self.savedAnswers().length) {
+                // Saving answer to a new unanswered question
+
+                if (self.questionType() == 'scq') {
+                    self.scqAnswer($('input[name="scq_options"]:checked').val());
+                    self.savedAnswers.push(self.scqAnswer());
+                }
+
+                else if (self.questionType() == 'mcq') {
+                    self.savedAnswers.push(JSON.stringify(self.mcqAnswers()));
+                }
+
+            }
+
+            else {
+                // Saving changed answer to an old already answered question
+
+                if (self.questionType() == 'scq') {
+                    self.scqAnswer($('input[name="scq_options"]:checked').val());
+                    self.savedAnswers().splice(self.custom_qno() - 1, 1, self.scqAnswer());
+                }
+
+                else if (self.questionType() == 'mcq') {
+                    self.savedAnswers().splice(self.custom_qno() - 1, 1,
+                        JSON.stringify(self.mcqAnswers()));
+                }
+
+            }
+
+            console.log(self.savedAnswers());
+
+        };
+
+        self.setAnswer = function (inAnswer) {
+            console.log("setAnswer", inAnswer);
+            if (self.questionType() == 'scq') {
+                self.scqAnswer(inAnswer);
+            }
+
+            else if (self.questionType() == 'mcq') {
+                console.log(self.mcqAnswers());
+                self.mcqAnswers(JSON.parse(inAnswer));
+            }
+        }
+
+        self.savedAnswersReport = ko.observableArray([]);
+
+        self.submitAnswersAndGetScore = function () {
+            self.saveAnswer();
+            self.submittedFlag(true);
+
+            self.savedAnswers().forEach(function (item, index, arr) {
+                /* Ignoring the questions that were skipped during test */
+                if (typeof item != "undefined" && item != "[]") {
+
+                    question = questions[self.questionsAsked()[index]];
+
+                    userAnswer = item;
+                    correctAnswer = question['ans'];
+
+
+                    if (question['qtype'] == 'mcq') {
+                        userAnswer = JSON.parse(item);
+                        if (userAnswer.sort().toString() == correctAnswer.sort().toString()) {
+                            self.correctCount(self.correctCount() + 1);
+                            self.savedAnswersReport.push("Correct");
+                        } else {
+                            self.incorrectCount(self.incorrectCount() + 1);
+                            self.savedAnswersReport.push("Incorrect");
+                        }
+                    }
+                    else {
+                        if (userAnswer == correctAnswer) {
+                            self.correctCount(self.correctCount() + 1);
+                            self.savedAnswersReport.push("Correct");
+                        } else {
+                            self.incorrectCount(self.incorrectCount() + 1);
+                            self.savedAnswersReport.push("Incorrect");
+                        }
+                    }
+                } else {
+                    self.unansweredCount(self.unansweredCount() + 1);
+                    self.savedAnswersReport.push("Skipped");
+                }
+
+                self.finalScore(self.correctCount() + " / " + questions.length);
+            });
+        }
+
+        let buildOptionColors = function (options, correctAnswers, userResponse) {
+            correctAnswers = typeof correctAnswers == 'string'
+                ? new Array(correctAnswers) : correctAnswers;
+
+
+            let optionColors = [];
+
+            console.log("buildOptionColors() correctAnswers:", correctAnswers);
+            console.log("buildOptionColors() userResponse:", userResponse);
+
+            for (let x in options) {
+                if (correctAnswers.includes(options[x])) {
+                    optionColors.push('green');
+                }
+                else if (!correctAnswers.includes(options[x])
+                    && userResponse.includes(options[x])) {
+                    optionColors.push('red');
+                } else {
+                    optionColors.push('nocolor');
+                }
+            }
+            return optionColors;
+        }
+        self.viewPerformanceReport = function () {
+            self.performanceReportFlag(true);
+
+            let msg = `Correct answers: ${self.correctCount()} <br><br> 
+                Incorrect answers: ${self.incorrectCount()} <br><br>
+                Skipped questions: ${questions.length - self.correctCount() - self.incorrectCount()}`;
+            self.performanceReportMessage(msg);
+
+            console.log("viewPerformanceReport self.savedAnswersReport():", self.savedAnswersReport());
+
+            self.savedAnswersReport().forEach(function (item, index, arr) {
+                question = questions[self.questionsAsked()[index]];
+                userResponse = self.savedAnswers()[index];
+
+                if (item == 'Incorrect') {
+                    optionColors = buildOptionColors(question['options'], question['ans'], userResponse);
+                    question['optionColors'] = optionColors;
+
+                    console.log("viewPerformanceReport() optionColors:", optionColors);
+                    self.questionsInPerformanceReport.push(question);
+                }
+            })
+        }
+
+    };
+
+    var viewModel = new ViewModel();
+    ko.applyBindings(viewModel);
+</script>

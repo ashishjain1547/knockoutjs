@@ -1,0 +1,110 @@
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+
+    <style>
+        p {
+            text-align: center;
+        }
+
+        input {
+            max-width: 60px;
+        }
+    </style>
+</head>
+
+<div>
+    <label for="num1">Numerator 1:</label>
+    <input type="number" id="num1" data-bind="value: num1" />
+    /
+    <label for="den1">Denominator 1:</label>
+    <input type="number" id="den1" data-bind="value: den1" />
+    <br /><br />
+    <label for="num2">Numerator 2:</label>
+    <input type="number" id="num2" data-bind="value: num2" />
+    /
+    <label for="den2">Denominator 2:</label>
+    <input type="number" id="den2" data-bind="value: den2" />
+    <br /><br />
+    <button data-bind="click: addFractions">Add Fractions</button>
+    <br /><br />
+    <label>Result:</label>
+    <span data-bind="text: result"></span>
+
+    <h2>Solution</h2>
+    <!--ko foreach: mySolution -->
+    <p data-bind="text: $data"></p>
+    <!-- /ko -->
+</div>
+
+<script>
+    function Fraction(numerator, denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
+    }
+
+    function ViewModel() {
+        var self = this;
+
+        self.num1 = ko.observable();
+        self.den1 = ko.observable();
+        self.num2 = ko.observable();
+        self.den2 = ko.observable();
+        self.result = ko.observable();
+
+        self.mySolution = ko.observableArray();
+
+        self.addFractions = function () {
+            self.mySolution([]);
+
+            var frac1 = new Fraction(parseInt(self.num1()), parseInt(self.den1()));
+            var frac2 = new Fraction(parseInt(self.num2()), parseInt(self.den2()));
+
+            var commonDenominator = frac1.denominator * frac2.denominator;
+
+            var numerator = frac1.numerator * frac2.denominator + frac2.numerator * frac1.denominator;
+
+            self.result((numerator / commonDenominator).toString());
+
+            self.mySolution.push("Formula for finding sum of two fractions:")
+            self.mySolution.push("frac1.numerator * frac2.denominator + frac2.numerator * frac1.denominator");
+            self.mySolution.push("------------------------------------------------------------------------------");
+            self.mySolution.push("frac1.denominator * frac2.denominator");
+            
+            self.mySolution.push("Now filling in the numbers:");
+            self.mySolution.push(frac1.numerator.toString() + " * " + frac2.denominator.toString() 
+            + " + " + frac2.numerator.toString() + " * " + frac1.denominator.toString());
+            self.mySolution.push("--------------------------");
+            self.mySolution.push(frac1.denominator.toString() + " * " + frac2.denominator.toString());
+            self.mySolution.push("After the intermediate sum and multiplication:");
+            self.mySolution.push(numerator);
+            self.mySolution.push("------------");
+            self.mySolution.push(commonDenominator);
+            
+            let gcd_val = gcd(numerator, commonDenominator);
+
+            self.mySolution.push("Next, we need to divide numerator and denominator by their HCF, i.e. " + gcd_val);
+
+            
+            numerator = numerator / gcd_val;
+            commonDenominator = commonDenominator / gcd_val;
+
+            self.mySolution.push(numerator);
+            self.mySolution.push("------------");
+            self.mySolution.push(commonDenominator);
+            
+            
+        };
+
+        function gcd(a, b) {
+            return b == 0 ? a : gcd(b, a % b);
+        }
+
+        function lcm(a, b) {
+            return (a * b) / gcd(a, b);
+        }
+    }
+
+    ko.applyBindings(new ViewModel());
+
+</script>
